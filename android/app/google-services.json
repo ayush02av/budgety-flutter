@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "275092097197",
+    "project_id": "budgety-aa52f",
+    "storage_bucket": "budgety-aa52f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275092097197:android:b31e8d706f5584466bde24",
+        "android_client_info": {
+          "package_name": "com.example.budgety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275092097197-uuun5up3aouu8gqcp00cdma8020ivl76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRlAUdU1GpnOM4zz-m-uHmfRBBd-aMyQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275092097197-uuun5up3aouu8gqcp00cdma8020ivl76.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "275092097197-57ul4l5g3r1vt1p9895id83vkfvsdv05.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.first"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
