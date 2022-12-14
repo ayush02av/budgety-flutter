@@ -1,12 +1,22 @@
+import 'package:budgety/middleware/checkAuth.dart';
 import 'package:budgety/views/home.dart';
 import 'package:budgety/views/login.dart';
+import 'package:budgety/views/profile.dart';
 import 'package:budgety/views/register.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  bool userAuthenticated = await CheckAuth().checkAuth();
+  runApp(MyApp(userAuthenticated: userAuthenticated));
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool userAuthenticated;
+
+  const MyApp({
+    required this.userAuthenticated,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,32 +25,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: userAuthenticated ? Profile() : const Home(),
       routes: {
         '/home/': (context) => const Home(),
         '/login/': (context) => const Login(),
         '/register/': (context) => const Register(),
+        '/profile/': (context) => Profile(),
       },
       debugShowCheckedModeBanner: false,
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Home();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginService {
   void login(String emailInput, String passwordInput) async {
@@ -13,10 +14,16 @@ class LoginService {
           <String, dynamic>{'email': emailInput, 'password': passwordInput},
         ));
     if (response.statusCode == 200) {
-      var json = response.body;
-      print(json);
-      return;
+      var json = jsonDecode(response.body);
+
+      // Create storage
+      const storage = FlutterSecureStorage();
+
+      // Write value
+      await storage.write(key: 'userAuthToken', value: json['token']);
+
+      final String? userAuthToken = await storage.read(key: 'userAuthToken');
+      print(userAuthToken);
     }
-    print(response.body);
   }
 }
