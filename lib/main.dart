@@ -1,17 +1,29 @@
+import 'package:budgety/views/home.dart';
+import 'package:budgety/views/login.dart';
+import 'package:budgety/views/register.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MaterialApp(
-    title: 'Budgety Application',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
-    home: const HomePage(),
-  ));
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Budgety | Track your monthly budget',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
+      routes: {
+        '/home/': (context) => const Home(),
+        '/login/': (context) => const Login(),
+        '/register/': (context) => const Register(),
+      },
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }
 
 class HomePage extends StatefulWidget {
@@ -22,73 +34,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-
   @override
   void initState() {
-    _email = TextEditingController();
-    _password = TextEditingController();
     super.initState();
   }
 
   @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(children: [
-                TextField(
-                  controller: _email,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter your email...'),
-                ),
-                TextField(
-                  controller: _password,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter your password...'),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    final userInputEmail = _email.text;
-                    final userInputPassword = _password.text;
-
-                    _password.clear();
-
-                    final newUser = await FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                            email: userInputEmail, password: userInputPassword);
-                    print(newUser);
-                  },
-                  child: const Text('Register'),
-                ),
-              ]);
-            default:
-              return const Text('loading');
-          }
-        },
-      ),
-    );
+    return const Home();
   }
 }
